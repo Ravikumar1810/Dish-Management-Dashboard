@@ -22,17 +22,15 @@ export const io = new Server(httpServer, {
 });
 
 io.on("connection", (socket) => {
-    console.log(`User Connected: ${socket.id}`);
-});
+  console.log(`User Connected: ${socket.id}`);
 
-io.on("disconnect", (socket) => {
+  socket.on("disconnect", () => {
     console.log(`User Disconnected: ${socket.id}`);
+  });
 });
 
-app.use(cors({
-      origin: "http://localhost:5173",
-    }
-));
+app.use(cors());
+
 app.use(express.json());
 
 app.get("/", (req, res) => {
