@@ -16,25 +16,29 @@ const httpServer = createServer(app);
 
 const allowedOrigins = [
   "http://localhost:5173",
-   import.meta.env.VITE_SOCKET_URL
+  process.env.CLIENT_URL,
 ];
 
-app.use(cors({
-  origin: allowedOrigins,
-}));
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
+);
 
 export const io = new Server(httpServer, {
   cors: {
     origin: allowedOrigins,
     methods: ["GET", "POST", "PATCH"],
+    credentials: true,
   },
 });
 
 io.on("connection", (socket) => {
-  console.log(`User Connected: ${socket.id}`);
+  console.log("Connected:", socket.id);
 
   socket.on("disconnect", () => {
-    console.log(`User Disconnected: ${socket.id}`);
+    console.log("Disconnected:", socket.id);
   });
 });
 
