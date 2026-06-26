@@ -14,11 +14,20 @@ connectDB();
 
 const httpServer = createServer(app);
 
+const allowedOrigins = [
+  "http://localhost:5173",
+   import.meta.env.VITE_SOCKET_URL
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+}));
+
 export const io = new Server(httpServer, {
-    cors: {
-        origin: "http://localhost:5173",
-        methods: ["GET", "POST", "PATCH"]
-    },
+  cors: {
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "PATCH"],
+  },
 });
 
 io.on("connection", (socket) => {
