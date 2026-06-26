@@ -5,3 +5,14 @@ body {
   min-height: 100vh;
   background: #0f172a;
 }
+
+Button{
+  cursor: pointer;
+}
+
+card {
+  hover:-translate-y-2;
+  hover:shadow-2xl;
+  transition-all;
+  duration-300;
+}
